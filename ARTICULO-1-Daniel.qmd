@@ -5,4 +5,4 @@ format: html
 editor: visual
 ---
 
-## HOLA A TODOS
+## HOLA
