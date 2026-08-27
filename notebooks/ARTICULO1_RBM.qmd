@@ -1,0 +1,51 @@
+---
+title: "Análisis Probabilístico del Transporte en México mediante Redes Bayesianas"
+author: "Rafael Santamaría Heredia y [Nombres de tu equipo]"
+format:
+  html:
+    toc: true
+    html-math-method: katex
+    embed-resources: true
+    self-contained-math: true
+    df-print: kable
+editor: source
+---
+
+## Abstract
+
+\[Aquí redactaremos la síntesis del estudio, metodología y el hallazgo principal tras comparar los modelos BIC\].
+
+## 1. Introducción
+
+\[Contexto sobre la movilidad urbana en México, la importancia de evaluar políticas públicas con datos y el planteamiento de las 4 hipótesis/queries que resolveremos\].
+
+## 2. Metodología
+
+\[Descripción de la base de datos ENMT, preprocesamiento (manejo de NAs vs categorías estructurales como el claxon), justificación de las 3 arquitecturas DAG propuestas y el uso del algoritmo Hill-Climbing\].
+
+### 2.1 Propuestas Estructurales (DAGs Teóricos)
+
+::: {layout-ncol="3"}
+![DAG Socioeconómico](article/dag1_teorico.png)
+
+![DAG Infraestructura](article/dag2_infraestructura.png)
+
+![DAG Riesgo](article/dag3_riesgo.png)
+:::
+
+### 2.2 Descubrimiento Algorítmico
+
+![DAG Hill-Climbing](article/dag_hc.png)
+
+## 3. Aplicación y Resultados
+
+\[Aquí insertaremos las tablas con los CSV y las probabilidades exactas obtenidas con Inferencia Bayesiana. Discutiremos los resultados de cada Query\].
+
+## 4. Conclusiones
+
+\[Análisis final de qué DAG tuvo el mejor ajuste (score BIC), qué significa eso para la movilidad urbana, y las limitaciones del estudio (ej. el evento raro del tractor)\].
+
+## 5. Referencias
+
+-   Instituto de Investigaciones Jurídicas UNAM. (2026). Encuesta Nacional de Movilidad y Transporte (ENMT).
+-   Repositorio del proyecto: \[Inserta aquí tu liga de GitHub\]
