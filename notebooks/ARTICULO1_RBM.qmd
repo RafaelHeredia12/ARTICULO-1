@@ -13,7 +13,7 @@ editor: source
 
 ## Abstract
 
-\[Aquí redactaremos la síntesis del estudio, metodología y el hallazgo principal tras comparar los modelos BIC\].
+\[Aquí redactaremos la síntesis del estudio, metodología y el hallazgo principal tras comparar los modelos BIC\]. ..
 
 ## 1. Introducción
 
