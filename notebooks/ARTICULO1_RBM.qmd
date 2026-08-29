@@ -22,7 +22,7 @@ editor: source
 ## 2. Metodología
 
 ### 2.1 Procesamiento de Datos y Construcción de Variables
-El análisis se fundamentó en los microdatos de la Encuesta Nacional de Movilidad y Transporte (ENMT). El preprocesamiento se enfocó en el tratamiento de valores nulos (NS/NC) y la recodificación de categorías estructurales para evitar la pérdida de información sistémica. Un caso crítico fue la variable sobre el uso excesivo del claxon (`p15_3`), donde el código original asignado a quienes no poseen automóvil se trató como una categoría estructural válida ("No aplica") en lugar de un valor faltante. Esto previno la eliminación del 76% de la muestra durante los procesos de filtrado.
+El análisis se fundamentó en los microdatos de la Encuesta Nacional de Movilidad y Transporte (ENMT). El preprocesamiento se enfocó en el tratamiento de valores nulos (NS/NC) y la recodificación de categorías estructurales para evitar la pérdida de información sistémica. Un caso crítico fue la variable sobre el uso excesivo del claxon (`p15_3`), donde el código original asignado a quienes no poseen automóvil se trató como una categoría estructural válida ("No aplica") en lugar de un valor faltante. Esto previno la eliminación del 76% de la muestra durante los procesos de filtradO. 
 
 Para responder a las interrogantes de investigación, se construyeron variables derivadas que consolidaron las dimensiones del instrumento original:
 

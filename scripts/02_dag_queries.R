@@ -51,7 +51,7 @@ resultados <- data.frame(
   Probabilidad = c(p_tractor_rural, p_tractor_urbano, p_claxon_h, p_claxon_m, p_delito_con, p_delito_sin, p_pub_bajo_largo, p_auto_alto_corto)
 )
 
-write.csv(resultados, "data/processed/resultados_queries.csv", row.names = FALSE)
+write.csv(resultados, "data/processed/resultados_queries_DAG1.csv", row.names = FALSE)
 print(test_delito) # Imprime en consola para que veas el p-value de Q3
 
 # Crear el PNG de la red
