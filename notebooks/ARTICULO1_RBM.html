@@ -2231,8 +2231,7 @@ window.Quarto = {
   <li><a href="#modelado-estructural-dags" id="toc-modelado-estructural-dags" class="nav-link" data-scroll-target="#modelado-estructural-dags">2.2 Modelado Estructural (DAGs)</a></li>
   <li><a href="#inferencia-bayesiana" id="toc-inferencia-bayesiana" class="nav-link" data-scroll-target="#inferencia-bayesiana">2.3 Inferencia Bayesiana</a></li>
   </ul></li>
-  <li><a href="#aplicación-y-resultados" id="toc-aplicación-y-resultados" class="nav-link" data-scroll-target="#aplicación-y-resultados">3. Aplicación y Resultados</a></li>
-  <li><a href="#aplicación-y-resultados-1" id="toc-aplicación-y-resultados-1" class="nav-link" data-scroll-target="#aplicación-y-resultados-1">3. Aplicación y Resultados</a>
+  <li><a href="#aplicación-y-resultados" id="toc-aplicación-y-resultados" class="nav-link" data-scroll-target="#aplicación-y-resultados">3. Aplicación y Resultados</a>
   <ul class="collapse">
   <li><a href="#evaluación-y-comparación-de-estructuras-score-bic" id="toc-evaluación-y-comparación-de-estructuras-score-bic" class="nav-link" data-scroll-target="#evaluación-y-comparación-de-estructuras-score-bic">3.1 Evaluación y Comparación de Estructuras (Score BIC)</a></li>
   <li><a href="#inferencia-probabilística-y-respuesta-a-las-queries-asignadas" id="toc-inferencia-probabilística-y-respuesta-a-las-queries-asignadas" class="nav-link" data-scroll-target="#inferencia-probabilística-y-respuesta-a-las-queries-asignadas">3.2 Inferencia Probabilística y Respuesta a las Queries Asignadas</a></li>
@@ -2347,9 +2346,6 @@ window.Quarto = {
 </section>
 <section id="aplicación-y-resultados" class="level2">
 <h2 class="anchored" data-anchor-id="aplicación-y-resultados">3. Aplicación y Resultados</h2>
-</section>
-<section id="aplicación-y-resultados-1" class="level2">
-<h2 class="anchored" data-anchor-id="aplicación-y-resultados-1">3. Aplicación y Resultados</h2>
 <section id="evaluación-y-comparación-de-estructuras-score-bic" class="level3">
 <h3 class="anchored" data-anchor-id="evaluación-y-comparación-de-estructuras-score-bic">3.1 Evaluación y Comparación de Estructuras (Score BIC)</h3>
 <p>Se evaluó cuantitativamente la bondad de ajuste de los tres DAGs teóricos construidos y del DAG obtenido mediante el algoritmo de aprendizaje estructural <em>Hill-Climbing</em>. La métrica de comparación fue la puntuación BIC (<em>Bayesian Information Criterion</em>), la cual penaliza la complejidad del modelo (número de parámetros) en función del tamaño de la muestra.</p>
@@ -2487,7 +2483,17 @@ window.Quarto = {
 </section>
 <section id="conclusiones" class="level2">
 <h2 class="anchored" data-anchor-id="conclusiones">4. Conclusiones</h2>
-<p>[Análisis final de qué DAG tuvo el mejor ajuste (score BIC), qué significa eso para la movilidad urbana, y las limitaciones del estudio (ej. el evento raro del tractor)].</p>
+<p>El modelado mediante Redes Bayesianas ofreció una perspectiva probabilística integral sobre los determinantes del transporte y la movilidad en México. Las principales conclusiones del estudio se sintetizan a continuación:</p>
+<ol type="1">
+<li><strong>Superioridad del Aprendizaje Estructural:</strong> El algoritmo <em>Hill-Climbing</em> superó consistentemente a las estructuras deductivas predefinidas (obteniendo un score BIC de <span class="math inline">-8653.48</span>). Esto evidencia que los patrones observados en las encuestas de movilidad urbana poseen una complejidad latente que supera las simplificaciones teóricas tradicionales.</li>
+<li><strong>Robustez en Eventos Raros:</strong> La implementación de técnicas de estimación Bayesiana con suavizado mediante muestra imaginaria (<span class="math inline">\text{iss} = 10</span>) permitió parametrizar nodos con eventos de muy baja frecuencia (como el uso de maquinaria agrícola en zonas urbanas), impidiendo la aparición de probabilidades nulas erróneas en la inferencia estocástica.</li>
+<li><strong>Implicaciones para Políticas Públicas:</strong>
+<ul>
+<li>La falta de significancia estadística entre la tenencia vehicular y el delito (<span class="math inline">p = 0.1297</span>) indica que la victimización afecta de manera transversal a los usuarios de la red vial, independientemente del modo de transporte personal.</li>
+<li>La fuerte concentración de usuarios de escasos recursos en trayectos largos dentro del transporte público (<span class="math inline">61.35\%</span>) subraya la urgente necesidad de articular políticas de ordenamiento territorial y subsidios focalizados para reducir la brecha de inequidad en tiempos de traslado.</li>
+</ul></li>
+<li><strong>Limitaciones y Líneas Futuras:</strong> La principal limitación del estudio radica en la muestra reducida disponible para combinaciones específicas de variables categóricas de alta dimensión. Investigaciones futuras podrían explorar algoritmos de aprendizaje de estructuras con restricciones (<em>hybrid structure learning</em>) e incorporar datos espaciales georreferenciados para capturar efectos de accesibilidad urbana a nivel de manzana o microzona.</li>
+</ol>
 </section>
 <section id="referencias" class="level2">
 <h2 class="anchored" data-anchor-id="referencias">5. Referencias</h2>

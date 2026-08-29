@@ -113,7 +113,14 @@ A partir de la Red Bayesiana ajustada con suavizado Bayesiano ($\text{iss} = 10$
 
 ## 4. Conclusiones
 
-\[Análisis final de qué DAG tuvo el mejor ajuste (score BIC), qué significa eso para la movilidad urbana, y las limitaciones del estudio (ej. el evento raro del tractor)\].
+El modelado mediante Redes Bayesianas ofreció una perspectiva probabilística integral sobre los determinantes del transporte y la movilidad en México. Las principales conclusiones del estudio se sintetizan a continuación:
+
+1. **Superioridad del Aprendizaje Estructural:** El algoritmo *Hill-Climbing* superó consistentemente a las estructuras deductivas predefinidas (obteniendo un score BIC de $-8653.48$). Esto evidencia que los patrones observados en las encuestas de movilidad urbana poseen una complejidad latente que supera las simplificaciones teóricas tradicionales.
+2. **Robustez en Eventos Raros:** La implementación de técnicas de estimación Bayesiana con suavizado mediante muestra imaginaria ($\text{iss} = 10$) permitió parametrizar nodos con eventos de muy baja frecuencia (como el uso de maquinaria agrícola en zonas urbanas), impidiendo la aparición de probabilidades nulas erróneas en la inferencia estocástica.
+3. **Implicaciones para Políticas Públicas:**
+   - La falta de significancia estadística entre la tenencia vehicular y el delito ($p = 0.1297$) indica que la victimización afecta de manera transversal a los usuarios de la red vial, independientemente del modo de transporte personal.
+   - La fuerte concentración de usuarios de escasos recursos en trayectos largos dentro del transporte público ($61.35\%$) subraya la urgente necesidad de articular políticas de ordenamiento territorial y subsidios focalizados para reducir la brecha de inequidad en tiempos de traslado.
+4. **Limitaciones y Líneas Futuras:** La principal limitación del estudio radica en la muestra reducida disponible para combinaciones específicas de variables categóricas de alta dimensión. Investigaciones futuras podrían explorar algoritmos de aprendizaje de estructuras con restricciones (*hybrid structure learning*) e incorporar datos espaciales georreferenciados para capturar efectos de accesibilidad urbana a nivel de manzana o microzona.
 
 ## 5. Referencias
 
