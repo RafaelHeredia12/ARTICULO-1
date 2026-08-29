@@ -74,7 +74,42 @@ La resolución de las interrogantes probabilísticas (queries) se ejecutó sobre
 
 ## 3. Aplicación y Resultados
 
-\[Aquí insertaremos las tablas con los CSV y las probabilidades exactas obtenidas con Inferencia Bayesiana. Discutiremos los resultados de cada Query\].
+### 3.1 Evaluación y Comparación de Estructuras (Score BIC)
+Se evaluó cuantitativamente la bondad de ajuste de los tres DAGs teóricos construidos y del DAG obtenido mediante el algoritmo de aprendizaje estructural *Hill-Climbing*. La métrica de comparación fue la puntuación BIC (*Bayesian Information Criterion*), la cual penaliza la complejidad del modelo (número de parámetros) en función del tamaño de la muestra.
+
+| Modelo / Estructura | Enfoque Teórico / Algorítmico | Score BIC | Ranking |
+| :--- | :--- | :---: | :---: |
+| **DAG 1** | Modelo Socioeconómico Base | -9647.92 | 4 |
+| **DAG 3** | Enfoque de Riesgo y Victimización | -9255.19 | 3 |
+| **DAG 2** | Enfoque de Infraestructura y Geografía | -9119.83 | 2 |
+| **Hill-Climbing (DAG HC)** | Aprendizaje Estructural Automatizado | **-8653.48** | **1** |
+
+El algoritmo *Hill-Climbing* logró una mejora sustancial en la puntuación BIC (superando por $+466.35$ puntos al segundo mejor modelo teórico, DAG 2). Esta superioridad matemática demuestra que las interdependencias empíricas latentes en los microdatos difieren de las suposiciones puramente teóricas, capturando conexiones no intuitivas entre el tamaño de localidad, el ingreso familiar y la preferencia modal.
+
+#### Representación Gráfica de los Grafos (DAGs)
+
+![DAG 1: Modelo Socioeconómico](article/dag1_teorico.png){width=70%}
+
+![DAG 2: Modelo de Infraestructura](article/dag2_infraestructura.png){width=70%}
+
+![DAG 3: Modelo de Riesgo](article/dag3_riesgo.png){width=70%}
+
+![DAG Aprendido por Hill-Climbing](article/dag_hc.png){width=70%}
+
+### 3.2 Inferencia Probabilística y Respuesta a las Queries Asignadas
+
+A partir de la Red Bayesiana ajustada con suavizado Bayesiano ($\text{iss} = 10$), se ejecutaron los algoritmos de muestreo estocástico (*Likelihood Weighting* y *Logic Sampling*) para responder formalmente a las cuatro interrogantes de investigación.
+
+| Query / Escenario | Condición / Evidencia Dada | Probabilidad Estimada |
+| :--- | :--- | :---: |
+| **Q1: Tractor (Rural)** | $P(\text{usa\_tractor} = \text{"Sí"} \mid \text{Tam\_loc\_bin} = \text{"Menos de 15,000 hab."})$ | **3.55%** ($0.035515$) |
+| **Q1: Tractor (Urbano)** | $P(\text{usa\_tractor} = \text{"Sí"} \mid \text{Tam\_loc\_bin} = \text{"15,000 hab. o más"})$ | **0.87%** ($0.008705$) |
+| **Q2: Claxon (Hombres)** | $P(\text{p15\_3} \in \text{\{"Siempre", "Casi siempre"\}} \mid \text{sexo} = \text{"Hombre"}, \text{p6} = \text{"Sí"})$ | **27.58%** ($0.275802$) |
+| **Q2: Claxon (Mujeres)** | $P(\text{p15\_3} \in \text{\{"Siempre", "Casi siempre"\}} \mid \text{sexo} = \text{"Mujer"}, \text{p6} = \text{"Sí"})$ | **35.47%** ($0.354700$) |
+| **Q3: Victimización (Con Auto)** | $P(\text{victima\_delito} = \text{"Sí"} \mid \text{p6} = \text{"Sí"})$ | **17.91%** ($0.179101$) |
+| **Q3: Victimización (Sin Auto)** | $P(\text{victima\_delito} = \text{"Sí"} \mid \text{p6} = \text{"No"})$ | **11.78%** ($0.117808$) |
+| **Q4: Público (Bajo Ingreso & Trayecto Largo)** | $P(\text{medio\_principal} = \text{"Público masivo"} \mid \text{ing\_fam} \in \text{\{"<1 SM", "1-2 SM"\}}, \text{dura1\_cat} = \text{"Largo (>40 min)"})$ | **61.35%** ($0.613507$) |
+| **Q4: Auto (Alto Ingreso & Trayecto Corto)** | $P(\text{medio\_principal} = \text{"Automóvil particular"} \mid \text{ing\_fam} \geq \text{"4-5 SM"}, \text{dura1\_cat} = \text{"Corto (≤20 min)"})$ | **21.96%** ($0.219592$) |
 
 ## 4. Conclusiones
 
