@@ -124,5 +124,7 @@ El modelado mediante Redes Bayesianas ofreció una perspectiva probabilística i
 
 ## 5. Referencias
 
--   Instituto de Investigaciones Jurídicas UNAM. (2026). Encuesta Nacional de Movilidad y Transporte (ENMT).
--   Repositorio del proyecto: \[Inserta aquí tu liga de GitHub\]
+-   Instituto de Investigaciones Jurídicas UNAM. (2026). *Encuesta Nacional de Movilidad y Transporte (ENMT)*. Universidad Nacional Autónoma de México.
+-   Scutari, M. (2010). Learning Bayesian Networks with the bnlearn R Package. *Journal of Statistical Software*, 35(3), 1-22.
+-   Pearl, J. (2009). *Causality: Models, Reasoning, and Inference*. Cambridge University Press.
+-   Repositorio del proyecto: [Inserta aquí tu liga de GitHub]
