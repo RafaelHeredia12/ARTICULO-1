@@ -17,7 +17,33 @@ editor: source
 
 ## 1. Introducción
 
-\[Contexto sobre la movilidad urbana en México, la importancia de evaluar políticas públicas con datos y el planteamiento de las 4 hipótesis/queries que resolveremos\].
+## 1. Introducción
+
+### 1.1 Contexto de la Movilidad en México
+La movilidad urbana y rural en México constituye un fenómeno socioespacial complejo, caracterizado por marcadas disparidades en la disponibilidad de infraestructura, tiempos de traslado, seguridad vial y exposición a patrones de victimización. En las últimas décadas, el acelerado e ineficiente crecimiento urbano, sumado a la brecha socioeconómica entre regiones, ha consolidado un sistema de transporte altamente heterogéneo. Mientras que los grandes centros urbanos concentran redes masivas de transporte público saturadas y un incremento sostenido de la flota vehicular particular, las localidades de menor densidad poblacional dependen de modos no motorizados, transporte informal o vehículos de uso agrícola adaptados a labores de traslado rutinario.
+
+Formular e implementar políticas públicas efectivas en materia de ordenamiento territorial, infraestructura y seguridad vial requiere superar los enfoques descriptivos tradicionales que analizan variables de manera aislada. La toma de decisiones en el ámbito público exige herramientas cuantitativas capaces de modelar la interacción simultánea entre factores sociodemográficos, hábitos de viaje, tenencia de activos y percepciones del entorno.
+
+### 1.2 Modelado Probabilístico mediante Redes Bayesianas
+En este contexto, las **Redes Bayesianas Multinomiales (RBM)** emergen como una alternativa analítica robusta frente a los modelos econométricos convencionales. Al estructurar las relaciones entre variables categóricas mediante un Grafo Acíclico Dirigido (DAG, por sus siglas en inglés), las RBMs permiten:
+
+1. **Capturar dependencias no lineales y complejas:** Representan interacciones multivariadas sin asumir normalidad en la distribución de los datos.
+2. **Propagar incertidumbre e inferir bajo evidencia parcial:** Permiten calcular probabilidades condicionales exactas o aproximadas ante la presencia de escenarios hipotéticos o datos faltantes.
+3. **Evaluar hipótesis causales y estructurales:** Facilitan la comparación objetiva entre marcos teóricos competitivos y algoritmos de aprendizaje de datos mediante métricas formales de bondad de ajuste, tales como el Criterio de Información Bayesiano (BIC).
+
+Aprovechando los microdatos empíricos de la **Encuesta Nacional de Movilidad y Transporte (ENMT)** desarrollada por el Instituto de Investigaciones Jurídicas de la UNAM, este trabajo aplica modelos de redes bayesianas para desentrañar las relaciones latentes que gobiernan el comportamiento de movilidad en la población mexicana.
+
+### 1.3 Objetivos e Hipótesis de Investigación (Queries)
+El objetivo principal de este artículo es evaluar la pertinencia de distintos grafos teóricos y estructurales aprendidos por datos para resolver cuatro interrogantes fundamentales sobre el sistema de transporte nacional. Estas preguntas se traducen formalmente en las siguientes hipótesis probabilísticas condicionales:
+
+* **Hipótesis 1 (Uso de transporte agrícola por entorno geográfico):**
+  * *Query 1:* ¿La probabilidad de utilizar el tractor como medio de transporte cotidiano u ocasional es significativamente mayor en localidades rurales o de baja densidad poblacional ($<15,000$ habitantes) en comparación con entornos urbanos? Se evalúa la dependencia entre el tamaño de localidad y el uso de vehículos no convencionales.
+* **Hipótesis 2 (Comportamiento de conducción y diferencias de género):**
+  * *Query 2:* Condicionado a la tenencia de automóvil propio en el hogar, ¿los hombres presentan una probabilidad mayor de incurrir en el uso excesivo del claxon en comparación con las mujeres? Se analiza la interacción entre género, propiedad vehicular y hábitos de conducción en el espacio vial.
+* **Hipótesis 3 (Tenencia vehicular y victimización delictiva):**
+  * *Query 3:* ¿Existe una diferencia estadísticamente significativa en la incidencia de delitos en el transporte entre las personas que disponen de vehículo particular y aquellas que dependen de otros medios? Se contrasta la exposición al riesgo delictivo en función del acceso al auto privado.
+* **Hipótesis 4 (Elección modal, estrato socioeconómico y tiempo de trayecto):**
+  * *Query 4:* ¿El nivel de ingreso familiar y la duración del viaje determinan conjuntamente la probabilidad de optar por el transporte público masivo en lugar del auto particular? Se examina la sensibilidad modal ante restricciones económicas y de tiempo de traslado.
 
 ## 2. Metodología
 
