@@ -21,21 +21,30 @@ editor: source
 
 ## 2. Metodología
 
-\[Descripción de la base de datos ENMT, preprocesamiento (manejo de NAs vs categorías estructurales como el claxon), justificación de las 3 arquitecturas DAG propuestas y el uso del algoritmo Hill-Climbing\].
+### 2.1 Procesamiento de Datos y Construcción de Variables
+El análisis se fundamentó en los microdatos de la Encuesta Nacional de Movilidad y Transporte (ENMT). El preprocesamiento se enfocó en el tratamiento de valores nulos (NS/NC) y la recodificación de categorías estructurales para evitar la pérdida de información sistémica. Un caso crítico fue la variable sobre el uso excesivo del claxon (`p15_3`), donde el código original asignado a quienes no poseen automóvil se trató como una categoría estructural válida ("No aplica") en lugar de un valor faltante. Esto previno la eliminación del 76% de la muestra durante los procesos de filtrado.
 
-### 2.1 Propuestas Estructurales (DAGs Teóricos)
+Para responder a las interrogantes de investigación, se construyeron variables derivadas que consolidaron las dimensiones del instrumento original:
 
-::: {layout-ncol="3"}
-![DAG Socioeconómico](article/dag1_teorico.png)
+* **Medio Principal:** Se sintetizaron 22 preguntas independientes sobre modos de transporte (`p1a_1` a `p1a_22`) en una única variable categórica (Automóvil particular, Público masivo, Taxi/Plataforma, No motorizado, Otro), priorizando estadísticamente los medios reportados como de uso cotidiano.
+* **Incidencia Delictiva:** Se generó una variable binaria (`victima_delito`) mediante la agregación lógica (OR) de siete modalidades de victimización en el transporte reportadas individualmente (`p25_1_1` a `p25_1_7`).
+* **Tiempo de Viaje:** La variable continua de duración del trayecto principal (`dura1`) se discretizó en tres intervalos ordenados: corto ($\leq$ 20 min), medio (21-40 min) y largo ($>$ 40 min).
 
-![DAG Infraestructura](article/dag2_infraestructura.png)
+### 2.2 Modelado Estructural (DAGs)
+Para modelar las relaciones de dependencia probabilística, se propusieron inicialmente tres Grafos Acíclicos Dirigidos (DAGs) basados en hipótesis teóricas deductivas:
 
-![DAG Riesgo](article/dag3_riesgo.png)
-:::
+* **DAG 1 (Socioeconómico):** Modela una jerarquía clásica donde los factores demográficos (edad, sexo) determinan la escolaridad, la cual a su vez influye en el nivel de ingresos y la condición de actividad, condicionando finalmente la tenencia vehicular y las percepciones del entorno.
+* **DAG 2 (Infraestructura):** Establece el tamaño de la localidad poblacional como el nodo raíz principal, asumiendo que el entorno geográfico y la infraestructura urbana rigen directamente la disponibilidad de medios, los tiempos de traslado y el uso de vehículos específicos como el tractor.
+* **DAG 3 (Riesgo y Comportamiento):** Centraliza la topología en los nodos de salida (exposición a delitos y uso del claxon), planteándolos como efectos convergentes que dependen fuertemente del ecosistema automovilístico cerrado y el tiempo de exposición durante los viajes.
 
-### 2.2 Descubrimiento Algorítmico
+Para contrastar estas hipótesis teóricas con la estructura latente en los datos, se implementó el algoritmo de aprendizaje automático Hill-Climbing. Este método iterativo heurístico descubre la topología óptima añadiendo y removiendo arcos hasta maximizar el ajuste empírico. Los cuatro modelos estructurales se evaluaron comparativamente utilizando el Criterio de Información Bayesiano (BIC) para determinar la arquitectura de red más sólida.
 
-![DAG Hill-Climbing](article/dag_hc.png)
+### 2.3 Inferencia Bayesiana
+Una vez evaluadas las estructuras, la red bayesiana que demostró el mejor ajuste empírico a los datos (mayor score BIC) fue seleccionada como el modelo definitivo para la fase de aplicación empírica. 
+
+La estimación de los parámetros de probabilidad condicional de esta red óptima se realizó mediante un ajuste Bayesiano (`method = "bayes"`). Para mitigar la inestabilidad en la estimación de nodos con eventos estadísticamente raros en la muestra —específicamente, el uso de tractor en zonas urbanas— se aplicó un factor de suavizado matemático estableciendo un tamaño de muestra imaginario (`iss = 10`).
+
+La resolución de las interrogantes probabilísticas (queries) se ejecutó sobre este modelo seleccionado mediante técnicas de inferencia aproximada basadas en simulación de Monte Carlo. Se emplearon los métodos de *Likelihood Weighting* y *Logic Sampling*, ejecutando 1,000,000 de iteraciones por escenario para garantizar una convergencia precisa de las probabilidades condicionales. Finalmente, para evaluar la relación entre la tenencia vehicular y la incidencia delictiva, se definió la aplicación de una prueba formal de independencia condicional utilizando el estadístico $G^2$ de información mutua para cuantificar la significancia estadística formal de la dependencia observada.
 
 ## 3. Aplicación y Resultados
 
