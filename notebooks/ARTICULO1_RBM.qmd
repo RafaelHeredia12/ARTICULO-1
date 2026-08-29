@@ -13,9 +13,7 @@ editor: source
 
 ## Abstract
 
-\[Aquí redactaremos la síntesis del estudio, metodología y el hallazgo principal tras comparar los modelos BIC\].
-
-## 1. Introducción
+Este estudio analiza los patrones de movilidad urbana, hábitos de transporte y percepción de seguridad en México a partir de los microdatos de la Encuesta Nacional de Movilidad y Transporte (ENMT). Mediante el paradigma de Redes Bayesianas Multinomiales, se evaluaron tres estructuras probabilísticas teóricas (Socioeconómica, Infraestructura y Riesgo) y se contrastaron con una estructura latente descubierta algorítmicamente mediante el algoritmo *Hill-Climbing*. Los modelos fueron evaluados cuantitativamente a través del Criterio de Información Bayesiano (BIC), resultando la topología aprendida por *Hill-Climbing* como la de mejor ajuste empírico ($\text{BIC} = -8653.48$). Utilizando la red óptima y estimación bayesiana con suavizado de Dirichlet ($\text{iss} = 10$), se resolvieron cuatro interrogantes probabilísticas clave (queries) empleando técnicas de simulación de Monte Carlo (*Likelihood Weighting* y *Logic Sampling*). Los hallazgos revelan que: (1) el uso de tractor agrícola es $4.08$ veces más probable en localidades rurales de menos de 15,000 habitantes ($3.55\%$ vs $0.87\%$); (2) las mujeres conductoras presentan una mayor probabilidad condicionada de uso frecuente del claxon ($35.47\%$) en comparación con los hombres ($27.58\%$); (3) la tenencia de automóvil no presenta una diferencia estadísticamente significativa en la incidencia delictiva sufrible ($G^2 = 2.2965, p = 0.1297$); y (4) el nivel socioeconómico y la duración del viaje determinan fuertemente la elección del transporte público ($61.35\%$ para estratos de ingresos bajos en trayectos largos).
 
 ## 1. Introducción
 

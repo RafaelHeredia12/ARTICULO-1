@@ -92,8 +92,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#abstract">Abstract</a></li>
-  <li><a href="#introducción" id="toc-introducción" class="nav-link" data-scroll-target="#introducción">1. Introducción</a></li>
-  <li><a href="#introducción-1" id="toc-introducción-1" class="nav-link" data-scroll-target="#introducción-1">1. Introducción</a>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link" data-scroll-target="#introducción">1. Introducción</a>
   <ul class="collapse">
   <li><a href="#contexto-de-la-movilidad-en-méxico" id="toc-contexto-de-la-movilidad-en-méxico" class="nav-link" data-scroll-target="#contexto-de-la-movilidad-en-méxico">1.1 Contexto de la Movilidad en México</a></li>
   <li><a href="#modelado-probabilístico-mediante-redes-bayesianas" id="toc-modelado-probabilístico-mediante-redes-bayesianas" class="nav-link" data-scroll-target="#modelado-probabilístico-mediante-redes-bayesianas">1.2 Modelado Probabilístico mediante Redes Bayesianas</a></li>
@@ -144,13 +143,10 @@ window.Quarto = {
 
 <section id="abstract" class="level2">
 <h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
-<p>[Aquí redactaremos la síntesis del estudio, metodología y el hallazgo principal tras comparar los modelos BIC].</p>
+<p>Este estudio analiza los patrones de movilidad urbana, hábitos de transporte y percepción de seguridad en México a partir de los microdatos de la Encuesta Nacional de Movilidad y Transporte (ENMT). Mediante el paradigma de Redes Bayesianas Multinomiales, se evaluaron tres estructuras probabilísticas teóricas (Socioeconómica, Infraestructura y Riesgo) y se contrastaron con una estructura latente descubierta algorítmicamente mediante el algoritmo <em>Hill-Climbing</em>. Los modelos fueron evaluados cuantitativamente a través del Criterio de Información Bayesiano (BIC), resultando la topología aprendida por <em>Hill-Climbing</em> como la de mejor ajuste empírico (<span class="math inline">\text{BIC} = -8653.48</span>). Utilizando la red óptima y estimación bayesiana con suavizado de Dirichlet (<span class="math inline">\text{iss} = 10</span>), se resolvieron cuatro interrogantes probabilísticas clave (queries) empleando técnicas de simulación de Monte Carlo (<em>Likelihood Weighting</em> y <em>Logic Sampling</em>). Los hallazgos revelan que: (1) el uso de tractor agrícola es <span class="math inline">4.08</span> veces más probable en localidades rurales de menos de 15,000 habitantes (<span class="math inline">3.55\%</span> vs <span class="math inline">0.87\%</span>); (2) las mujeres conductoras presentan una mayor probabilidad condicionada de uso frecuente del claxon (<span class="math inline">35.47\%</span>) en comparación con los hombres (<span class="math inline">27.58\%</span>); (3) la tenencia de automóvil no presenta una diferencia estadísticamente significativa en la incidencia delictiva sufrible (<span class="math inline">G^2 = 2.2965, p = 0.1297</span>); y (4) el nivel socioeconómico y la duración del viaje determinan fuertemente la elección del transporte público (<span class="math inline">61.35\%</span> para estratos de ingresos bajos en trayectos largos).</p>
 </section>
 <section id="introducción" class="level2">
 <h2 class="anchored" data-anchor-id="introducción">1. Introducción</h2>
-</section>
-<section id="introducción-1" class="level2">
-<h2 class="anchored" data-anchor-id="introducción-1">1. Introducción</h2>
 <section id="contexto-de-la-movilidad-en-méxico" class="level3">
 <h3 class="anchored" data-anchor-id="contexto-de-la-movilidad-en-méxico">1.1 Contexto de la Movilidad en México</h3>
 <p>La movilidad urbana y rural en México constituye un fenómeno socioespacial complejo, caracterizado por marcadas disparidades en la disponibilidad de infraestructura, tiempos de traslado, seguridad vial y exposición a patrones de victimización. En las últimas décadas, el acelerado e ineficiente crecimiento urbano, sumado a la brecha socioeconómica entre regiones, ha consolidado un sistema de transporte altamente heterogéneo. Mientras que los grandes centros urbanos concentran redes masivas de transporte público saturadas y un incremento sostenido de la flota vehicular particular, las localidades de menor densidad poblacional dependen de modos no motorizados, transporte informal o vehículos de uso agrícola adaptados a labores de traslado rutinario.</p>
