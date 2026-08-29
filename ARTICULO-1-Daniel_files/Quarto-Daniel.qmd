@@ -1,8 +1,0 @@
----
-title: "Quarto-Daniel"
-author: "Daniel"
-format: html
-editor: visual
----
-
-## Quarto
