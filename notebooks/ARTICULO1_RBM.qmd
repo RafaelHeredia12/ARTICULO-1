@@ -60,6 +60,7 @@ Para responder a las interrogantes de investigación, se construyeron variables 
 
 ### 2.2 Modelado Estructural (DAGs)
 
+La decisión de limitar la dimensionalidad de los Grafos Acíclicos Dirigidos (DAGs) a las variables fundamentales, en lugar de incorporar la totalidad de los ítems de la encuesta, responde al principio de parsimonia y a las restricciones matemáticas de las redes bayesianas discretas. Expandir masivamente la red incrementa de forma exponencial el tamaño de las Tablas de Probabilidad Condicional (CPTs). Considerando el tamaño de la muestra disponible, una red sobredimensionada generaría celdas vacías y esparcimiento de datos (data sparsity), lo cual imposibilita la convergencia de métodos de muestreo de Monte Carlo para eventos infrecuentes. Adicionalmente, acotar el espacio de características a los componentes sociodemográficos, espaciales y de infraestructura evita que el algoritmo iterativo de Hill-Climbing se sobreajuste al ruido estadístico, garantizando que los arcos descubiertos representen verdaderas dependencias estructurales de la movilidad urbana y no correlaciones espurias.
 Para modelar las relaciones de dependencia probabilística, se propusieron inicialmente tres Grafos Acíclicos Dirigidos (DAGs) basados en hipótesis teóricas deductivas:
 
 - **DAG 1 (Socioeconómico):** Modela una jerarquía clásica donde los factores demográficos (edad, sexo) determinan la escolaridad, la cual a su vez influye en el nivel de ingresos y la condición de actividad, condicionando finalmente la tenencia vehicular y las percepciones del entorno.
@@ -146,5 +147,6 @@ El modelado mediante Redes Bayesianas ofreció una perspectiva probabilística i
 
 - Instituto de Investigaciones Jurídicas UNAM. (2026). *Encuesta Nacional de Movilidad y Transporte (ENMT)*. Universidad Nacional Autónoma de México.
 - Scutari, M. (2010). Learning Bayesian Networks with the bnlearn R Package. *Journal of Statistical Software*, 35(3), 1-22.
+- Koller, D., & Friedman, N. (2009). Probabilistic Graphical Models: Principles and Techniques. MIT Press.
 - Pearl, J. (2009). *Causality: Models, Reasoning, and Inference*. Cambridge University Press.
 - Repositorio del proyecto: [Inserta aquí tu liga de GitHub]
