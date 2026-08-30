@@ -16,6 +16,7 @@
 # ============================================================
 library(dplyr)
 
+
 raw <- read.csv("data/raw/enmt_unam.csv", fileEncoding = "latin1", stringsAsFactors = FALSE)
 
 clean_na <- function(x, codes) {
@@ -88,3 +89,5 @@ df_final <- df %>% select(sexo, edad_1, escol, cond_act, ing_fam, Tam_loc_bin, m
 dir.create("data/processed", showWarnings = FALSE, recursive = TRUE)
 saveRDS(df_final, "data/processed/enmt_clean.rds")
 write.csv(df_final, "data/processed/enmt_clean.csv", row.names = FALSE, na = "")
+
+

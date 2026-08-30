@@ -33,7 +33,7 @@ En consecuencia, en este trabajo se implementan redes bayesianas a dicha base de
 
 ### 2.1 Procesamiento de Datos y Construcción de Variables
 
-El análisis se fundamentó en los microdatos de la Encuesta Nacional de Movilidad y Transporte (ENMT). El preprocesamiento se enfocó en el tratamiento de valores nulos (NS/NC) y la recodificación de categorías estructurales para evitar la pérdida de información sistémica. Un caso crítico fue la variable sobre el uso excesivo del claxon (`p15_3`), donde el código original asignado a quienes no poseen automóvil se trató como una categoría estructural válida ("No aplica") en lugar de un valor faltante. Esto previno la eliminación del 76% de la muestra durante los procesos de filtradO.
+El análisis se fundamentó en los microdatos de la Encuesta Nacional de Movilidad y Transporte (ENMT). El preprocesamiento se enfocó en el tratamiento de valores nulos (NS/NC) y la recodificación de categorías estructurales para evitar la pérdida de información sistémica. Un caso crítico fue la variable sobre el uso excesivo del claxon (`p15_3`), donde el código original asignado a quienes no poseen automóvil se trató como una categoría estructural válida ("No aplica") en lugar de un valor faltante. Esto previno la eliminación del 76% de la muestra durante los procesos de filtrado.
 
 Para responder a las interrogantes de investigación, se construyeron variables derivadas que consolidaron las dimensiones del instrumento original:
 
@@ -66,9 +66,21 @@ Para modelar las relaciones de dependencia probabilística, se propusieron inici
 - **DAG 2 (Infraestructura):** Establece el tamaño de la localidad poblacional como el nodo raíz principal, asumiendo que el entorno geográfico y la infraestructura urbana rigen directamente la disponibilidad de medios, los tiempos de traslado y el uso de vehículos específicos como el tractor.
 - **DAG 3 (Riesgo y Comportamiento):** Centraliza la topología en los nodos de salida (exposición a delitos y uso del claxon), planteándolos como efectos convergentes que dependen fuertemente del ecosistema automovilístico cerrado y el tiempo de exposición durante los viajes.
 
-Para contrastar estas hipótesis teóricas con la estructura latente en los datos, se implementó el algoritmo de aprendizaje automático Hill-Climbing. Este método iterativo heurístico descubre la topología óptima añadiendo y removiendo arcos hasta maximizar el ajuste empírico. Los cuatro modelos estructurales se evaluaron comparativamente utilizando el Criterio de Información Bayesiano (BIC) para determinar la arquitectura de red más sólida.
+::: {layout-ncol="3"}
+![DAG Socioeconómico](../article/dag1_teorico.png)
 
-### 2.3 Inferencia Bayesiana
+![DAG Infraestructura](../article/dag2_infraestructura.png)
+
+![DAG Riesgo](../article/dag3_riesgo.png)
+:::
+
+### 2.3 Descubrimiento Algorítmico
+
+Para contrastar estas hipótesis teóricas con la estructura latente en los datos, se implementó el algoritmo de aprendizaje automático *Hill-Climbing*. Este método iterativo heurístico descubre la topología óptima añadiendo y removiendo arcos hasta maximizar el ajuste empírico. Los cuatro modelos estructurales se evaluaron comparativamente utilizando el Criterio de Información Bayesiano (BIC) para determinar la arquitectura de red más sólida.
+
+![DAG Hill-Climbing](../article/dag_hc.png)
+
+### 2.4 Inferencia Bayesiana
 
 Una vez evaluadas las estructuras, la red bayesiana que demostró el mejor ajuste empírico a los datos (mayor score BIC) fue seleccionada como el modelo definitivo para la fase de aplicación empírica.
 
@@ -120,16 +132,19 @@ A partir de la Red Bayesiana ajustada con suavizado Bayesiano ($\text{iss} = 10$
 
 El modelado mediante Redes Bayesianas ofreció una perspectiva probabilística integral sobre los determinantes del transporte y la movilidad en México. Las principales conclusiones del estudio se sintetizan a continuación:
 
-1.  **Superioridad del Aprendizaje Estructural:** El algoritmo *Hill-Climbing* superó consistentemente a las estructuras deductivas predefinidas (obteniendo un score BIC de $-8653.48$). Esto evidencia que los patrones observados en las encuestas de movilidad urbana poseen una complejidad latente que supera las simplificaciones teóricas tradicionales.
-2.  **Robustez en Eventos Raros:** La implementación de técnicas de estimación Bayesiana con suavizado mediante muestra imaginaria ($\text{iss} = 10$) permitió parametrizar nodos con eventos de muy baja frecuencia (como el uso de maquinaria agrícola en zonas urbanas), impidiendo la aparición de probabilidades nulas erróneas en la inferencia estocástica.
-3.  **Implicaciones para Políticas Públicas:**
-    - La falta de significancia estadística entre la tenencia vehicular y el delito ($p = 0.1297$) indica que la victimización afecta de manera transversal a los usuarios de la red vial, independientemente del modo de transporte personal.
-    - La fuerte concentración de usuarios de escasos recursos en trayectos largos dentro del transporte público ($61.35\%$) subraya la urgente necesidad de articular políticas de ordenamiento territorial y subsidios focalizados para reducir la brecha de inequidad en tiempos de traslado.
-4.  **Limitaciones y Líneas Futuras:** La principal limitación del estudio radica en la muestra reducida disponible para combinaciones específicas de variables categóricas de alta dimensión. Investigaciones futuras podrían explorar algoritmos de aprendizaje de estructuras con restricciones (*hybrid structure learning*) e incorporar datos espaciales georreferenciados para capturar efectos de accesibilidad urbana a nivel de manzana o microzona.
+1. **Superioridad del Aprendizaje Estructural:** El algoritmo *Hill-Climbing* superó consistentemente a las estructuras deductivas predefinidas (obteniendo un score BIC de $-8653.48$). Esto evidencia que los patrones observados en las encuestas de movilidad urbana poseen una complejidad latente que supera las simplificaciones teóricas tradicionales.
+
+2. **Robustez en Eventos Raros:** La implementación de técnicas de estimación Bayesiana con suavizado mediante muestra imaginaria ($\text{iss} = 10$) permitió parametrizar nodos con eventos de muy baja frecuencia (como el uso de maquinaria agrícola en zonas urbanas), impidiendo la aparición de probabilidades nulas erróneas en la inferencia estocástica.
+
+3. **Implicaciones para Políticas Públicas:**
+   - La falta de significancia estadística entre la tenencia vehicular y el delito ($p = 0.1297$) indica que la victimización afecta de manera transversal a los usuarios de la red vial, independientemente del modo de transporte personal.
+   - La fuerte concentración de usuarios de escasos recursos en trayectos largos dentro del transporte público ($61.35\%$) subraya la urgente necesidad de articular políticas de ordenamiento territorial y subsidios focalizados para reducir la brecha de inequidad en tiempos de traslado.
+
+4. **Limitaciones y Líneas Futuras:** La principal limitación del estudio radica en la muestra reducida disponible para combinaciones específicas de variables categóricas de alta dimensión. Investigaciones futuras podrían explorar algoritmos de aprendizaje de estructuras con restricciones (*hybrid structure learning*) e incorporar datos espaciales georreferenciados para capturar efectos de accesibilidad urbana a nivel de manzana o microzona.
 
 ## 5. Referencias
 
 - Instituto de Investigaciones Jurídicas UNAM. (2026). *Encuesta Nacional de Movilidad y Transporte (ENMT)*. Universidad Nacional Autónoma de México.
 - Scutari, M. (2010). Learning Bayesian Networks with the bnlearn R Package. *Journal of Statistical Software*, 35(3), 1-22.
 - Pearl, J. (2009). *Causality: Models, Reasoning, and Inference*. Cambridge University Press.
-- Repositorio del proyecto: \[Inserta aquí tu liga de GitHub\]
+- Repositorio del proyecto: [Inserta aquí tu liga de GitHub]
