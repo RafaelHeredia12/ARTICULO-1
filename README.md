@@ -16,6 +16,7 @@ Este repositorio contiene el código fuente, preprocesamiento de datos, modelos 
 ├── data/                                  # Gestión de datos del proyecto
 │   ├── processed/                         # Datos procesados y tablas de resultados
 │   │   ├── comparacion_dags.csv           # Métrica BIC y ranking comparativo de los 4 DAGs
+│   │   ├── dag_hc.rds                     # DAG de Hill-Climbing serializado (usado por 04 para no recalcularlo)
 │   │   ├── enmt_clean.csv                 # Dataset recodificado y limpio (formato CSV)
 │   │   ├── enmt_clean.rds                 # Dataset limpio preservando tipos de datos en R (formato RDS)
 │   │   ├── resultados_queries_DAG1.csv    # Inferencia de probabilidades estocásticas sobre DAG 1
