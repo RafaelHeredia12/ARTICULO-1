@@ -68,9 +68,9 @@ La decisión de limitar la dimensionalidad de los Grafos Acíclicos Dirigidos (D
 
 Para modelar las relaciones de dependencia probabilística, se propusieron inicialmente tres Grafos Acíclicos Dirigidos (DAGs) basados en hipótesis teóricas deductivas:
 
-- **DAG 1 (Socioeconómico):** Modela una jerarquía clásica donde los factores demográficos (edad, sexo) determinan la escolaridad, la cual a su vez influye en el nivel de ingresos y la condición de actividad, condicionando finalmente la tenencia vehicular y las percepciones del entorno.
-- **DAG 2 (Infraestructura):** Establece el tamaño de la localidad poblacional como el nodo raíz principal, asumiendo que el entorno geográfico y la infraestructura urbana rigen directamente la disponibilidad de medios, los tiempos de traslado y el uso de vehículos específicos como el tractor.
-- **DAG 3 (Riesgo y Comportamiento):** Centraliza la topología en los nodos de salida (exposición a delitos y uso del claxon), planteándolos como efectos convergentes que dependen fuertemente del ecosistema automovilístico cerrado y el tiempo de exposición durante los viajes.
+- **DAG 1 (Socioeconómico):** Modela una jerarquía clásica donde los factores demográficos (edad, sexo) determinan la escolaridad, la cual a su vez influye en el nivel de ingresos y la condición de actividad, condicionando finalmente la tenencia vehicular y las percepciones del entorno. Esta jerarquía causal responde a la secuencia temporal real del ciclo de vida del individuo: la escolaridad se consolida en etapas tempranas, mientras que el ingreso y la condición de actividad son atributos que se determinan posteriormente y dependen, en parte, del nivel educativo alcanzado. Invertir esta dirección (ingreso → escolaridad) carecería de sustento teórico y violaría la lógica temporal que la estructura busca representar.
+- **DAG 2 (Infraestructura):** Establece el tamaño de la localidad poblacional como el nodo raíz principal, asumiendo que el entorno geográfico y la infraestructura urbana rigen directamente la disponibilidad de medios, los tiempos de traslado y el uso de vehículos específicos como el tractor. Se establece el tamaño de la localidad como nodo raíz al tratarse de un atributo geográfico exógeno al comportamiento individual: ninguna decisión de movilidad del sujeto modifica el tamaño poblacional de su entorno, mientras que este sí condiciona directamente la oferta de infraestructura y la disponibilidad de medios de transporte.
+- **DAG 3 (Riesgo y Comportamiento):** Centraliza la estructura en los nodos de salida (exposición a delitos y uso del claxon), planteándolos como efectos convergentes que dependen fuertemente del ecosistema automovilístico cerrado y el tiempo de exposición durante los viajes. Esta decisión responde a que ambas variables constituyen manifestaciones observables del comportamiento vial y la exposición del individuo, más que factores determinantes de otras variables de la red.
 
 ::: {layout-ncol="3"}
 ![DAG Socioeconómico](../article/dag1_teorico.png)
@@ -84,6 +84,8 @@ Para modelar las relaciones de dependencia probabilística, se propusieron inici
 
 Para contrastar estas hipótesis teóricas con la estructura latente en los datos, se implementó el algoritmo de aprendizaje automático *Hill-Climbing*. Para garantizar la validez teórica de la red descubierta, se implementó una lista de restricciones topológicas (*blacklist*) que impidió matemáticamente que cualquier variable actuara como causa de atributos inmutables como la edad o el sexo, forzándolos a operar como nodos raíz. Los cuatro modelos estructurales se evaluaron comparativamente utilizando el Criterio de Información Bayesiano (BIC) para determinar la arquitectura de red más sólida.
 
+
+
 ![DAG Hill-Climbing](../article/dag_hc.png)
 
 ### 2.4 Inferencia Bayesiana
@@ -95,6 +97,7 @@ La estimación de los parámetros de probabilidad condicional de esta red óptim
 La resolución de las interrogantes probabilísticas (queries) se ejecutó sobre este modelo seleccionado mediante técnicas de inferencia aproximada basadas en simulación de Monte Carlo. Se emplearon los métodos de *Likelihood Weighting* y *Logic Sampling*, ejecutando 1,000,000 de iteraciones por escenario para garantizar una convergencia precisa de las probabilidades condicionales. Finalmente, para evaluar la relación entre la tenencia vehicular y la incidencia delictiva, se definió la aplicación de una prueba formal de independencia condicional utilizando el estadístico $G^2$ de información mutua para cuantificar la significancia estadística formal de la dependencia observada.
 
 Es importante destacar que el uso de un suavizado bayesiano (tamaño de muestra imaginario iss = 10) tiene un efecto estabilizador en las estimaciones. Este mecanismo ajusta las probabilidades hacia valores más neutrales, mitigando el sesgo en subgrupos con muestras pequeñas (ej. dueños de auto). Este comportamiento empuja levemente los cálculos estadísticos directos, pero mejora significativamente la robustez probabilística del modelo general ante la escasez empírica de datos en eventos raros.
+
 
 ## 3. Aplicación y Resultados
 
