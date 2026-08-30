@@ -160,10 +160,10 @@ El modelado integral del ecosistema de movilidad mediante el algoritmo probabil�
 - Koller, D., & Friedman, N. (2009). *Probabilistic Graphical Models: Principles and Techniques*. MIT Press.
 - Lajunen, T., Parker, D., & Summala, H. (2005). The driver behaviour questionnaire: A cross-cultural meta-analysis. *Accident Analysis & Prevention*, 37(2), 231-240.
 - Nguyen, H., Moeinaddini, M., Saadi, I., & Cools, M. (2024). Analysing urban mobility patterns using Bayesian approaches. *Journal of Transport Geography*, 114, 103750.
-- Peng, Y., Cheng, Z., Jiang, X., Zhu, L., & Guo, F. (2021). Bayesian Networks for transport safety analysis and accident risk forecasting. *Safety Science*, 136, 105156.
 - Obregón-Biosca, S., & Betanzo-Quezada, E. (2015). Análisis de la movilidad urbana en México: El caso del transporte público. *Revista de Ingeniería*, 19(2), 85-98.
 - Pearl, J. (2009). *Causality: Models, Reasoning, and Inference* (2a ed.). Cambridge University Press.
+- Peng, Y., Cheng, Z., Jiang, X., Zhu, L., & Guo, F. (2021). Bayesian Networks for transport safety analysis and accident risk forecasting. *Safety Science*, 136, 105156.
 - Scutari, M. (2010). Learning Bayesian Networks with the bnlearn R Package. *Journal of Statistical Software*, 35(3), 1-22.
 - Vilalta Perdomo, C. (2011). Los delitos en el transporte público en México: Patrones espaciales y determinantes sociodemográficos. *Estudios Demográficos y Urbanos*, 26(1), 105-132.
-- Wang, Y., Sun, X., & Zhang, Y. (2017). Causal models in public transit behavior and commuter mode choices. *Transportation Research Part A: Policy and Practice*, 102, 120-134.
+- Wang, Y., Sun, X., & Zhang, Y. (2017). Causal models in public transit behavior and commuter mode choices. *Transportation Research Part A: Policy and Practice*, 102, 120-134. 
 - [Repositorio del Proyecto](https://github.com/RafaelHeredia12/ARTICULO-1)
