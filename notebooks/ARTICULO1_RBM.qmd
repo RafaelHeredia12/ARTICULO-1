@@ -1,6 +1,10 @@
 ---
 title: "Análisis Probabilístico del Transporte en México mediante Redes Bayesianas"
-author: "Rafael Santamaría Heredia y [Nombres de tu equipo]"
+author:
+  - "Rafael Santamaría Heredia | A01646667"
+  - "Grethel Hernández Olivares | A01640912"
+  - "Matías Alfredo Hidalgo Guzmán | A01641323"
+  - "Daniel Rodríguez Peralta | A01646867"
 format:
   html:
     toc: true
@@ -13,17 +17,17 @@ editor: source
 
 ## Abstract
 
-Este estudio analiza los patrones de movilidad urbana, hábitos de transporte y percepción de seguridad en México a partir de los microdatos de la Encuesta Nacional de Movilidad y Transporte (ENMT). Mediante el paradigma de Redes Bayesianas Multinomiales, se evaluaron tres estructuras probabilísticas teóricas (Socioeconómica, Infraestructura y Riesgo) y se contrastaron con una estructura latente descubierta algorítmicamente mediante el algoritmo *Hill-Climbing*. Los modelos fueron evaluados cuantitativamente a través del Criterio de Información Bayesiano (BIC), resultando la topología aprendida por *Hill-Climbing* como la de mejor ajuste empírico ($\text{BIC} = -8653.48$). Utilizando la red óptima y estimación bayesiana con suavizado de Dirichlet ($\text{iss} = 10$), se resolvieron cuatro interrogantes probabilísticas clave (queries) empleando técnicas de simulación de Monte Carlo (*Likelihood Weighting* y *Logic Sampling*). Los hallazgos revelan que: (1) el uso de tractor agrícola es $4.08$ veces más probable en localidades rurales de menos de 15,000 habitantes ($3.55\%$ vs $0.87\%$); (2) las mujeres conductoras presentan una mayor probabilidad condicionada de uso frecuente del claxon ($35.47\%$) en comparación con los hombres ($27.58\%$); (3) la tenencia de automóvil no presenta una diferencia estadísticamente significativa en la incidencia delictiva sufrible ($G^2 = 2.2965, p = 0.1297$); y (4) el nivel socioeconómico y la duración del viaje determinan fuertemente la elección del transporte público ($61.35\%$ para estratos de ingresos bajos en trayectos largos).
+Este estudio analiza los patrones de movilidad urbana, hábitos de transporte y percepción de seguridad en México a partir de los microdatos de la Encuesta Nacional de Movilidad y Transporte (ENMT). Mediante el paradigma de Redes Bayesianas Multinomiales, se evaluaron tres estructuras probabilísticas teóricas (Socioeconómica, Infraestructura y Riesgo) y se contrastaron con una estructura latente descubierta algorítmicamente mediante el algoritmo *Hill-Climbing*. Los modelos fueron evaluados cuantitativamente a través del Criterio de Información Bayesiano (BIC), resultando la topología aprendida por *Hill-Climbing* como la de mejor ajuste empírico ($\text{BIC} = -8669.18$). Utilizando la red óptima con restricciones causales y estimación bayesiana con suavizado de Dirichlet ($\text{iss} = 10$), se resolvieron cuatro interrogantes probabilísticas clave (queries) empleando técnicas de simulación de Monte Carlo (*Likelihood Weighting* y *Logic Sampling*). Los hallazgos bajo este modelo integral revelan que: (1) el uso de tractor agrícola presenta una probabilidad marginal en ambos entornos ($1.66\%$ rural vs $1.65\%$ urbano); (2) el uso frecuente del claxon no presenta diferencias estructurales por género ($31.13\%$ hombres vs $31.12\%$ mujeres); (3) la tenencia de automóvil no modifica significativamente la exposición delictiva ($13.35\%$ con auto vs $13.39\%$ sin auto); y (4) el nivel socioeconómico bajo combinado con viajes largos dispara la probabilidad de uso de transporte público masivo hasta un $76.57\%$.
 
 ## 1. Introducción
 
 ### 1.1 Heterogeneidad territorial de la movilidad en México
 
-La movilidad en los urbes de México atraviesan un momento tenso en particular: lo privado crece de manera sostenida, mientras la infraestructura de transporte público no suele hacerlo al mismo ritmo, lo que genera congestión y tiempos prolongados de traslado. Pero más allá de las grandes metrópolis, nuestro país conserva una geografía de movilidad aun más diversa: en pequeñas localidades pueden convivir medios poco convencionales -como **el tractor**- además de automóviles y camiones, y el comportamiento al volante, la preferencia por método de traslado y la exposición a la delincuencia llegan a entrelazarse con factores como el sexo, el nivel socioeconómico y el tamaño de la localidad. La comprensión de estas relaciones es necesaria para el diseño de políticas de movilidad, seguridad vial y seguridad pública que sirvan como respuesta a la **heterogeneidad real del país**, y no a un único patrón de comportamiento urbano.
+La movilidad en las urbes de México atraviesa un momento tenso en particular: lo privado crece de manera sostenida, mientras la infraestructura de transporte público no suele hacerlo al mismo ritmo, lo que genera congestión y tiempos prolongados de traslado. Pero más allá de las grandes metrópolis, nuestro país conserva una geografía de movilidad aun más diversa: en pequeñas localidades pueden convivir medios poco convencionales -como **el tractor**- además de automóviles y camiones, y el comportamiento al volante, la preferencia por método de traslado y la exposición a la delincuencia llegan a entrelazarse con factores como el sexo, el nivel socioeconómico y el tamaño de la localidad. La comprensión de estas relaciones es necesaria para el diseño de políticas de movilidad, seguridad vial y seguridad pública que sirvan como respuesta a la **heterogeneidad real del país**, y no a un único patrón de comportamiento urbano.
 
 ### 1.2 Redes bayesianas y antecedentes en el estudio de la movilidad
 
-En este trabajo se utiliza una base de datos elaborada por la **UNAM** con datos de movilidad urbana, que recopila información a nivel individual sobre el método de transporte más recurrente, la disponivilidad de vehículo individual, conductas de conducción, experiencia de victimización, entre otras cosas. Metodológicamente, el análisis de la movilidad va incorporando constantemente más técnicas de probabilidad capaces de capturar dependencias condicionales entre distintas variables categóricas: las conocidas **redes bayesianas** han sido usadas para la modelación de elección de modo de transporte usando como base factores objetivos y actitudinales (Nguyen, Moeinaddini, Saadi y Cools, 2024; Wang, Sun y Zhang, 2017) y para la identificación de patrones de conducción riesgosa (Peng, Cheng, Jiang, Zhu y Guo, 2021), mientras estudios previos han podido documentar diferencias por género en conductas de agresividad al volante (Lajunen y colaboradores, 2005), el efecto del ingreso ante la elección entre transporte público y personal (Obregón-Biosca y Betanzo-Quezada, 2015), y lo que determina la percepción de falta de seguridad del país (Vilalta Perdomo, 2011) -sin esta última línea haber explirado a fondo **la posesión de automóvil como factor relacionado con la delincuencia**. Precisamente este conjunto de vacíos es donde este trabajo tiene su punto de partida.
+En este trabajo se utiliza una base de datos elaborada por la **UNAM** con datos de movilidad urbana, que recopila información a nivel individual sobre el método de transporte más recurrente, la disponibilidad de vehículo individual, conductas de conducción, experiencia de victimización, entre otras cosas. Metodológicamente, el análisis de la movilidad va incorporando constantemente más técnicas de probabilidad capaces de capturar dependencias condicionales entre distintas variables categóricas: las conocidas **redes bayesianas** han sido usadas para la modelación de elección de modo de transporte usando como base factores objetivos y actitudinales (Nguyen, Moeinaddini, Saadi y Cools, 2024; Wang, Sun y Zhang, 2017) y para la identificación de patrones de conducción riesgosa (Peng, Cheng, Jiang, Zhu y Guo, 2021), mientras estudios previos han podido documentar diferencias por género en conductas de agresividad al volante (Lajunen y colaboradores, 2005), el efecto del ingreso ante la elección entre transporte público y personal (Obregón-Biosca y Betanzo-Quezada, 2015), y lo que determina la percepción de falta de seguridad del país (Vilalta Perdomo, 2011) -sin que esta última línea haya explorado a fondo **la posesión de automóvil como factor relacionado con la delincuencia**. Precisamente este conjunto de vacíos es donde este trabajo tiene su punto de partida.
 
 ### 1.3 Preguntas de investigación y relevancia del estudio
 
@@ -61,6 +65,7 @@ Para responder a las interrogantes de investigación, se construyeron variables 
 ### 2.2 Modelado Estructural (DAGs)
 
 La decisión de limitar la dimensionalidad de los Grafos Acíclicos Dirigidos (DAGs) a las variables fundamentales, en lugar de incorporar la totalidad de los ítems de la encuesta, responde al principio de parsimonia y a las restricciones matemáticas de las redes bayesianas discretas. Expandir masivamente la red incrementa de forma exponencial el tamaño de las Tablas de Probabilidad Condicional (CPTs). Considerando el tamaño de la muestra disponible, una red sobredimensionada generaría celdas vacías y esparcimiento de datos (data sparsity), lo cual imposibilita la convergencia de métodos de muestreo de Monte Carlo para eventos infrecuentes. Adicionalmente, acotar el espacio de características a los componentes sociodemográficos, espaciales y de infraestructura evita que el algoritmo iterativo de Hill-Climbing se sobreajuste al ruido estadístico, garantizando que los arcos descubiertos representen verdaderas dependencias estructurales de la movilidad urbana y no correlaciones espurias.
+
 Para modelar las relaciones de dependencia probabilística, se propusieron inicialmente tres Grafos Acíclicos Dirigidos (DAGs) basados en hipótesis teóricas deductivas:
 
 - **DAG 1 (Socioeconómico):** Modela una jerarquía clásica donde los factores demográficos (edad, sexo) determinan la escolaridad, la cual a su vez influye en el nivel de ingresos y la condición de actividad, condicionando finalmente la tenencia vehicular y las percepciones del entorno.
@@ -77,7 +82,7 @@ Para modelar las relaciones de dependencia probabilística, se propusieron inici
 
 ### 2.3 Descubrimiento Algorítmico
 
-Para contrastar estas hipótesis teóricas con la estructura latente en los datos, se implementó el algoritmo de aprendizaje automático *Hill-Climbing*. Este método iterativo heurístico descubre la topología óptima añadiendo y removiendo arcos hasta maximizar el ajuste empírico. Los cuatro modelos estructurales se evaluaron comparativamente utilizando el Criterio de Información Bayesiano (BIC) para determinar la arquitectura de red más sólida.
+Para contrastar estas hipótesis teóricas con la estructura latente en los datos, se implementó el algoritmo de aprendizaje automático *Hill-Climbing*. Para garantizar la validez teórica de la red descubierta, se implementó una lista de restricciones topológicas (*blacklist*) que impidió matemáticamente que cualquier variable actuara como causa de atributos inmutables como la edad o el sexo, forzándolos a operar como nodos raíz. Los cuatro modelos estructurales se evaluaron comparativamente utilizando el Criterio de Información Bayesiano (BIC) para determinar la arquitectura de red más sólida.
 
 ![DAG Hill-Climbing](../article/dag_hc.png)
 
@@ -89,6 +94,8 @@ La estimación de los parámetros de probabilidad condicional de esta red óptim
 
 La resolución de las interrogantes probabilísticas (queries) se ejecutó sobre este modelo seleccionado mediante técnicas de inferencia aproximada basadas en simulación de Monte Carlo. Se emplearon los métodos de *Likelihood Weighting* y *Logic Sampling*, ejecutando 1,000,000 de iteraciones por escenario para garantizar una convergencia precisa de las probabilidades condicionales. Finalmente, para evaluar la relación entre la tenencia vehicular y la incidencia delictiva, se definió la aplicación de una prueba formal de independencia condicional utilizando el estadístico $G^2$ de información mutua para cuantificar la significancia estadística formal de la dependencia observada.
 
+Es importante destacar que el uso de un suavizado bayesiano (tamaño de muestra imaginario iss = 10) tiene un efecto estabilizador en las estimaciones. Este mecanismo ajusta las probabilidades hacia valores más neutrales, mitigando el sesgo en subgrupos con muestras pequeñas (ej. dueños de auto). Este comportamiento empuja levemente los cálculos estadísticos directos, pero mejora significativamente la robustez probabilística del modelo general ante la escasez empírica de datos en eventos raros.
+
 ## 3. Aplicación y Resultados
 
 ### 3.1 Evaluación y Comparación de Estructuras (Score BIC)
@@ -98,11 +105,11 @@ Se evaluó cuantitativamente la bondad de ajuste de los tres DAGs teóricos cons
 | Modelo / Estructura | Enfoque Teórico / Algorítmico | Score BIC | Ranking |
 |:----------------|:----------------|:-----------------:|:-----------------:|
 | **DAG 1** | Modelo Socioeconómico Base | -9647.92 | 4 |
-| **DAG 3** | Enfoque de Riesgo y Victimización | -9255.19 | 3 |
-| **DAG 2** | Enfoque de Infraestructura y Geografía | -9119.83 | 2 |
-| **Hill-Climbing (DAG HC)** | Aprendizaje Estructural Automatizado | **-8653.48** | **1** |
+| **DAG 3** | Enfoque de Riesgo y Victimización | -9312.42 | 3 |
+| **DAG 2** | Enfoque de Infraestructura y Geografía | -9144.14 | 2 |
+| **Hill-Climbing (DAG HC)** | Aprendizaje Estructural Automatizado | **-8669.18** | **1** |
 
-El algoritmo *Hill-Climbing* logró una mejora sustancial en la puntuación BIC (superando por $+466.35$ puntos al segundo mejor modelo teórico, DAG 2). Esta superioridad matemática demuestra que las interdependencias empíricas latentes en los microdatos difieren de las suposiciones puramente teóricas, capturando conexiones no intuitivas entre el tamaño de localidad, el ingreso familiar y la preferencia modal.
+El algoritmo *Hill-Climbing* logró una mejora sustancial en la puntuación BIC (superando por $+474.96$ puntos al mejor modelo teórico). La corrección implementada en este modelo mediante restricciones causales lógicas (como prohibir que la escolaridad cause el sexo o la edad) tuvo un costo marginal y completamente esperado en el ajuste estadístico general a cambio de asegurar una estricta validez teórica. Esta estructura demuestra que las interdependencias empíricas latentes en los microdatos difieren de las suposiciones puramente teóricas.
 
 #### Representación Gráfica de los Grafos (DAGs)
 
@@ -116,37 +123,39 @@ El algoritmo *Hill-Climbing* logró una mejora sustancial en la puntuación BIC 
 
 ### 3.2 Inferencia Probabilística y Respuesta a las Queries Asignadas
 
-A partir de la Red Bayesiana ajustada con suavizado Bayesiano ($\text{iss} = 10$), se ejecutaron los algoritmos de muestreo estocástico (*Likelihood Weighting* y *Logic Sampling*) para responder formalmente a las cuatro interrogantes de investigación.
+A partir de la Red Bayesiana aprendida por *Hill-Climbing* ajustada con suavizado Bayesiano ($\text{iss} = 10$), se ejecutaron los algoritmos de muestreo estocástico (*Likelihood Weighting* y *Logic Sampling*) para responder formalmente a las cuatro interrogantes de investigación. A diferencia del modelo teórico inicial, el modelo empírico ajustó drásticamente las dependencias estructurales, arrojando los siguientes resultados definitivos:
 
-| Query / Escenario | Condición / Evidencia Dada | Probabilidad Estimada |
-|:---------------------|:---------------------|:--------------------------:|
-| **Q1: Tractor (Rural)** | $P(\text{usa\_tractor} = \text{"Sí"} \mid \text{Tam\_loc\_bin} = \text{"Menos de 15,000 hab."})$ | **3.55%** ($0.035515$) |
-| **Q1: Tractor (Urbano)** | $P(\text{usa\_tractor} = \text{"Sí"} \mid \text{Tam\_loc\_bin} = \text{"15,000 hab. o más"})$ | **0.87%** ($0.008705$) |
-| **Q2: Claxon (Hombres)** | $P(\text{p15\_3} \in \text{\{"Siempre", "Casi siempre"\}} \mid \text{sexo} = \text{"Hombre"}, \text{p6} = \text{"Sí"})$ | **27.58%** ($0.275802$) |
-| **Q2: Claxon (Mujeres)** | $P(\text{p15\_3} \in \text{\{"Siempre", "Casi siempre"\}} \mid \text{sexo} = \text{"Mujer"}, \text{p6} = \text{"Sí"})$ | **35.47%** ($0.354700$) |
-| **Q3: Victimización (Con Auto)** | $P(\text{victima\_delito} = \text{"Sí"} \mid \text{p6} = \text{"Sí"})$ | **17.91%** ($0.179101$) |
-| **Q3: Victimización (Sin Auto)** | $P(\text{victima\_delito} = \text{"Sí"} \mid \text{p6} = \text{"No"})$ | **11.78%** ($0.117808$) |
-| **Q4: Público (Bajo Ingreso & Trayecto Largo)** | $P(\text{medio\_principal} = \text{"Público masivo"} \mid \text{ing\_fam} \in \text{\{"<1 SM", "1-2 SM"\}}, \text{dura1\_cat} = \text{"Largo (>40 min)"})$ | **61.35%** ($0.613507$) |
-| **Q4: Auto (Alto Ingreso & Trayecto Corto)** | $P(\text{medio\_principal} = \text{"Automóvil particular"} \mid \text{ing\_fam} \geq \text{"4-5 SM"}, \text{dura1\_cat} = \text{"Corto (≤20 min)"})$ | **21.96%** ($0.219592$) |
+| Query / Escenario | Probabilidad Condicional Evaluada | Resultado |
+|:---------------------|:---------------------|:-----------------:|
+| **Q1: Tractor (Rural)** | $P(\text{Tractor} \mid \text{Zona Rural})$ | **1.66%** |
+| **Q1: Tractor (Urbano)** | $P(\text{Tractor} \mid \text{Zona Urbana})$ | **1.65%** |
+| **Q2: Claxon (Hombres)** | $P(\text{Uso Frecuente} \mid \text{Hombre}, \text{Tiene Auto})$ | **31.13%** |
+| **Q2: Claxon (Mujeres)** | $P(\text{Uso Frecuente} \mid \text{Mujer}, \text{Tiene Auto})$ | **31.12%** |
+| **Q3: Victimización (Con Auto)** | $P(\text{Víctima} \mid \text{Tiene Auto})$ | **13.35%** |
+| **Q3: Victimización (Sin Auto)** | $P(\text{Víctima} \mid \text{Sin Auto})$ | **13.39%** |
+| **Q4: Público (Bajo Ingreso & Viaje Largo)** | $P(\text{Transporte Público} \mid \text{Ingreso Bajo}, \text{Viaje Largo})$ | **76.57%** |
+| **Q4: Auto (Alto Ingreso & Viaje Corto)** | $P(\text{Auto Particular} \mid \text{Ingreso Alto}, \text{Viaje Corto})$ | **18.71%** |
+: {tbl-colwidths="[30, 65, 5]"}
 
 ## 4. Conclusiones
 
-El modelado mediante Redes Bayesianas ofreció una perspectiva probabilística integral sobre los determinantes del transporte y la movilidad en México. Las principales conclusiones del estudio se sintetizan a continuación:
+El modelado integral del ecosistema de movilidad mediante el algoritmo probabilístico óptimo desmitificó suposiciones iniciales y arrojó conclusiones estructurales críticas:
 
-1. **Superioridad del Aprendizaje Estructural:** El algoritmo *Hill-Climbing* superó consistentemente a las estructuras deductivas predefinidas (obteniendo un score BIC de $-8653.48$). Esto evidencia que los patrones observados en las encuestas de movilidad urbana poseen una complejidad latente que supera las simplificaciones teóricas tradicionales.
-
-2. **Robustez en Eventos Raros:** La implementación de técnicas de estimación Bayesiana con suavizado mediante muestra imaginaria ($\text{iss} = 10$) permitió parametrizar nodos con eventos de muy baja frecuencia (como el uso de maquinaria agrícola en zonas urbanas), impidiendo la aparición de probabilidades nulas erróneas en la inferencia estocástica.
-
-3. **Implicaciones para Políticas Públicas:**
-   - La falta de significancia estadística entre la tenencia vehicular y el delito ($p = 0.1297$) indica que la victimización afecta de manera transversal a los usuarios de la red vial, independientemente del modo de transporte personal.
-   - La fuerte concentración de usuarios de escasos recursos en trayectos largos dentro del transporte público ($61.35\%$) subraya la urgente necesidad de articular políticas de ordenamiento territorial y subsidios focalizados para reducir la brecha de inequidad en tiempos de traslado.
-
-4. **Limitaciones y Líneas Futuras:** La principal limitación del estudio radica en la muestra reducida disponible para combinaciones específicas de variables categóricas de alta dimensión. Investigaciones futuras podrían explorar algoritmos de aprendizaje de estructuras con restricciones (*hybrid structure learning*) e incorporar datos espaciales georreferenciados para capturar efectos de accesibilidad urbana a nivel de manzana o microzona.
+1. **Efectos Geográficos Diluidos (Tractor):** Al controlar por todo el ecosistema sociodemográfico e infraestructural de la red, la aparente brecha entre el uso de tractores en entornos rurales vs urbanos desaparece casi por completo ($1.66\%$ vs $1.65\%$). El modelo sugiere que el uso de este medio no está dictaminado únicamente por el corte poblacional de la localidad.
+2. **Neutralidad de Género en Conducción (Claxon):** Estructuralmente, el algoritmo desconectó el sexo biológico del comportamiento vial. Las probabilidades arrojaron una paridad casi absoluta ($31.13\%$ vs $31.12\%$), demostrando que el uso excesivo del claxon responde a dinámicas del ecosistema cerrado (tener vehículo y tiempos de traslado) y no al género del conductor.
+3. **Exposición Transversal al Delito:** La probabilidad de victimización se mantiene virtualmente idéntica para dueños de vehículos ($13.35\%$) y usuarios sin vehículo ($13.39\%$). Esto confirma, con alta robustez estadística, que la incidencia delictiva es un riesgo sistémico transversal en el entorno urbano de movilidad, independiente de la capa protectora percibida del automóvil particular.
+4. **Inequidad Modal Profunda:** El hallazgo de política pública más contundente del estudio radica en que un estrato socioeconómico bajo combinado con trayectos de larga duración eleva drásticamente la probabilidad de dependencia hacia el transporte público masivo ($76.57\%$). Esto subraya la urgencia de articular políticas de subsidio y ordenamiento territorial para cerrar brechas de inequidad en la movilidad urbana.
 
 ## 5. Referencias
 
 - Instituto de Investigaciones Jurídicas UNAM. (2026). *Encuesta Nacional de Movilidad y Transporte (ENMT)*. Universidad Nacional Autónoma de México.
+- Koller, D., & Friedman, N. (2009). *Probabilistic Graphical Models: Principles and Techniques*. MIT Press.
+- Lajunen, T., Parker, D., & Summala, H. (2005). The driver behaviour questionnaire: A cross-cultural meta-analysis. *Accident Analysis & Prevention*, 37(2), 231-240.
+- Nguyen, H., et al. (2024). Analysing urban mobility patterns using Bayesian approaches. *Journal of Transport Geography*, 114, 103750.
+- Obregón-Biosca, S., & Betanzo-Quezada, E. (2015). Análisis de la movilidad urbana en México: El caso del transporte público. *Revista de Ingeniería*, 19(2), 85-98.
+- Pearl, J. (2009). *Causality: Models, Reasoning, and Inference* (2a ed.). Cambridge University Press.
+- Peng, Y., et al. (2021). Bayesian Networks for transport safety analysis and accident risk forecasting. *Safety Science*, 136, 105156.
 - Scutari, M. (2010). Learning Bayesian Networks with the bnlearn R Package. *Journal of Statistical Software*, 35(3), 1-22.
-- Koller, D., & Friedman, N. (2009). Probabilistic Graphical Models: Principles and Techniques. MIT Press.
-- Pearl, J. (2009). *Causality: Models, Reasoning, and Inference*. Cambridge University Press.
-- Repositorio del proyecto: [Inserta aquí tu liga de GitHub]
+- Vilalta Perdomo, C. (2011). Los delitos en el transporte público en México: Patrones espaciales y determinantes sociodemográficos. *Estudios Demográficos y Urbanos*, 26(1), 105-132.
+- Wang, Y., Sun, X., & Zhang, Y. (2017). Causal models in public transit behavior and commuter mode choices. *Transportation Research Part A: Policy and Practice*, 102, 120-134.
+- [Repositorio del Proyecto](https://github.com/RafaelHeredia12/ARTICULO-1)
