@@ -56,5 +56,5 @@ print(test_delito) # Imprime en consola para que veas el p-value de Q3
 
 # Crear el PNG de la red
 png("article/dag1_teorico.png", width = 800, height = 600)
-graphviz.plot(dag, shape = "ellipse", main = "DAG 1: Modelo Socioeconomico Base")
+graphviz.plot(dag, shape = "ellipse")
 dev.off()

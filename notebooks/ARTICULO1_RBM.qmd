@@ -145,6 +145,8 @@ El modelado integral del ecosistema de movilidad mediante el algoritmo probabil�
 2. **Neutralidad de Género en Conducción (Claxon):** Estructuralmente, el algoritmo desconectó el sexo biológico del comportamiento vial. Las probabilidades arrojaron una paridad casi absoluta ($31.13\%$ vs $31.12\%$), demostrando que el uso excesivo del claxon responde a dinámicas del ecosistema cerrado (tener vehículo y tiempos de traslado) y no al género del conductor.
 3. **Exposición Transversal al Delito:** La probabilidad de victimización se mantiene virtualmente idéntica para dueños de vehículos ($13.35\%$) y usuarios sin vehículo ($13.39\%$). Esto confirma, con alta robustez estadística, que la incidencia delictiva es un riesgo sistémico transversal en el entorno urbano de movilidad, independiente de la capa protectora percibida del automóvil particular.
 4. **Inequidad Modal Profunda:** El hallazgo de política pública más contundente del estudio radica en que un estrato socioeconómico bajo combinado con trayectos de larga duración eleva drásticamente la probabilidad de dependencia hacia el transporte público masivo ($76.57\%$). Esto subraya la urgencia de articular políticas de subsidio y ordenamiento territorial para cerrar brechas de inequidad en la movilidad urbana.
+5. **Limitaciones y Líneas Futuras:** La principal limitación del estudio radica en la escasez de datos empíricos para combinaciones específicas de variables categóricas. Aunque el suavizado bayesiano mitigó este problema para eventos raros, investigaciones futuras podrían explorar algoritmos de aprendizaje de estructuras híbridas (*hybrid structure learning*) e incorporar datos georreferenciados para capturar efectos de accesibilidad a nivel de microzona.
+
 
 ## 5. Referencias
 

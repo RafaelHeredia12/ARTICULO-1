@@ -1,9 +1,9 @@
 "Query","Probabilidad"
-"Tractor_Rural",0.035995
-"Tractor_Urbano",0.00847
-"Claxon_Hombre",0.275547906360744
-"Claxon_Mujer",0.355118722257773
-"Delito_ConAuto",0.182932142571572
-"Delito_SinAuto",0.118081804905142
-"Pub_BajoLargo",0.61082761919949
-"Auto_AltoCorto",0.221716835182664
+"Tractor_Rural",0.035745
+"Tractor_Urbano",0.008685
+"Claxon_Hombre",0.276545515970519
+"Claxon_Mujer",0.357113657733887
+"Delito_ConAuto",0.181485995086443
+"Delito_SinAuto",0.117302578946351
+"Pub_BajoLargo",0.613718891741264
+"Auto_AltoCorto",0.217441759261946
